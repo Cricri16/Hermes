@@ -1,5 +1,5 @@
 v14.6.3
-19
+18
 affichage.py
 be_app.py
 chifrement.py
