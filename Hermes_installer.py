@@ -14,6 +14,6 @@ for i in liste_a_telecharger:
     url = f"https://raw.githubusercontent.com/Cricri16/Hermes/main/{i}"
     print(url)
     with urllib.request.urlopen(url) as f:
-        with open(i,'wb') as file:
+        with open(i[:-1],'wb') as file:
             file.write(f.read())
 messagebox.showinfo('instalation','instalation effectuer')
