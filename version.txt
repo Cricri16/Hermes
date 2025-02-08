@@ -6,7 +6,7 @@ chifrement.py
 command.py
 conextion.py
 customhtml.py
-fe_app.py
+Hermes.py
 Hermes_installer.py
 msg_fonct.py
 palette.py
