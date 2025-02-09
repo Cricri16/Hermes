@@ -137,7 +137,7 @@ class MainInterface(tkinter.Tk):
         affichage.main(data,self.lbmessage,emplacement,self)
         msg_fonct.main(data,self,self.lbmsg,emplacement)
 
-# update.chekupdate()
+update.chekupdate()
 sql.init()# si les base de donnée n'existe pas on les crée
 
 data = stockage.BigData()
