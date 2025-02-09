@@ -10,7 +10,7 @@ def chekupdate():
     with open('version.txt','r') as f:
         local = f.readlines()[0][:-1]
     if version != local:
-        messagebox.showinfo('Mise a jour','Une mise a jour est disponible et va etre telecharger')
+        messagebox.showinfo('instalation','la messagerie Hermes va etre installer')
         nombre_de_fichier = int(fich[1][:-1].decode('utf-8')) # on recupere le nombre de fichier a telecharger
         liste_a_telecharger = [] # on creer une liste qui va contenir les fichier a telecharger
         for i in range(nombre_de_fichier): # on fait une boucle pour recuperer les fichier a telecharger
@@ -19,6 +19,6 @@ def chekupdate():
             url = f"https://raw.githubusercontent.com/Cricri16/Hermes/main/{i}"
             print(url)
             with urllib.request.urlopen(url) as f:
-                with open(i,'wb') as file:
+                with open(i[:-1],'wb') as file:
                     file.write(f.read())
-        messagebox.showinfo('Mise a jour','Mise a jour effectuer')
+        messagebox.showinfo('instalation','instalation effectuer')
