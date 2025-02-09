@@ -10,9 +10,15 @@ import user_conected
 import sendmess
 import affichage
 import update
+
 class MainInterface(tkinter.Tk):
     def __init__(self,data:stockage.BigData) -> None:
         super().__init__()
+        try :
+            name = data.get('pseudo')
+        except :
+            exit()
+        be_app.background(self)
         self.title('hermes : '+ data.get('pseudo'))
         self.configure(bg=palette.custom(0))
         self.grid_rowconfigure(1,weight=1)
@@ -131,7 +137,7 @@ class MainInterface(tkinter.Tk):
         affichage.main(data,self.lbmessage,emplacement,self)
         msg_fonct.main(data,self,self.lbmsg,emplacement)
 
-update.chekupdate()
+# update.chekupdate()
 sql.init()# si les base de donnée n'existe pas on les crée
 
 data = stockage.BigData()

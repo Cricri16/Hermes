@@ -10,6 +10,7 @@ from tkinter import filedialog
 import customhtml
 import time
 import os
+dev = True
 def ouvrir_explorateur_fichier():
     root = tkinter.Tk()
     root.withdraw()  # Masquer la fenêtre principale
@@ -124,10 +125,10 @@ def new_pseudo(entrer:str,data:stockage.BigData,emplacement:be_app.Emplacement):
         
     real_name = customhtml.bvn() # on recupere le nom de la personne
     ligne = sql.Where('anuaire_user',colone=['rname'],objet=[real_name]) # on regarde si il existe
-    if ligne[-1][-1] + (7*24*60*60) >= time.time() :
+    if ligne[-1][-1] + (7*24*60*60) >= time.time() and dev == False:
         messagebox.showinfo('changement de pseudo',"vous avez deja changer de pseudo il y a moins de 7 jours")
         return False
-    elif check(entrer) == False :
+    elif check(entrer) == False and dev == False :
         return False
     else :
         sql.Update('anuaire_user',colone=['pname'],objet=[entrer[12:]],id=ligne[0][0]) # on met a jour la bdd dans l'anuaire

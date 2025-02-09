@@ -1,5 +1,5 @@
 import time
-
+import sql
 import tkinter
 class Emplacement:
     def __init__(self,frame:tkinter.Frame,label:tkinter.Label) -> None:
@@ -117,3 +117,44 @@ class Emplacement:
                 typ,
                 time.time()
             ]
+
+class background:
+    def __init__(self,frame:tkinter.Frame) -> None:
+        # initialisation des tache qui doivent marcher en arriere plan
+        self.bdd = bdd(frame) # on initialise les tache sur la bdd
+
+class bdd :
+    def __init__(self,frame:tkinter.Frame) -> None:
+        self.frame = frame # on rend la frame accessible a toute les fonction
+        self.delete_old_load() # on suprime les fichier qui ont plus de 10 minutes toute les 10 minutes
+        self.verification_pseudo() # on verifie que tout les pseudo sont reglementaire
+    def delete_old_load(self):
+        # on suprime les fichier qui ont plus de 10 minutes toute les 10 minutes
+        recup = sql.Where('partage',colone=['time'],objet=[time.time()-600],operation='<')# on recupére les fichier qui ont plus de 10 minutes
+        for i in recup: # on les analyse
+            sql.Update('partage',colone=['recu','content'],objet=[1,0],id=i[0]) # on les suprime et on les marque comme telechargé
+        self.frame.after(60000,self.delete_old_load) # on relance la fonction toute les 10 minutes
+    def verification_pseudo(self):
+        def check(enter:str):
+            li = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890._-" # on verifie que le pseudo ne contient pas de caractere speciaux
+            for i in enter: #on les analyse
+                if i not in li : # on verifie si il n'est pas dans la liste des caractere autorisé
+                    return False # si il est pas dans la liste on renvoi False
+            if not (4<len(enter)<15) : # on verifie que le pseudo a la bonne taille
+                return False # si il ne fait pas la bonne taille on renvoi False
+            exist = sql.Where('anuaire_user',
+                                    colone=['pname'],
+                                    objet=[enter]) # on verifie que le pseudo n'existe pas deja
+            if exist :
+                return False
+            return True
+        # on verifie si tout les pseudo stont reglementaire
+        recup = sql.All('anuaire_user') # on recupére tout les pseudo inscrit
+        for i in recup: # on les analyse
+            if check(i[2]): # on verifie si il est reglementaire
+                sql.Update('anuaire_user',colone=['rname','pname'],objet=[False,False],id=i[0]) # on suprime les pseudo qui ne sont pas reglementaire
+                print('pseudo suprimer : ',i[2])
+                find = sql.Where('log_conect',colone=['pname'],objet=[i[2]]) # on trouve toute ses conextion
+                for i in find:
+                    sql.Update('log_conect',colone=['sortie'],objet=[-1],id=i[0]) # on le deconecte
+        self.frame.after(5*60*1000,self.verification_pseudo) # on relance la fonction toute les 5 minutes

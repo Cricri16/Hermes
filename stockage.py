@@ -1,6 +1,11 @@
+
 import sql
 import tkinter
 import time
+"""
+organisation de la bdd :
+3 colone : id , 1 nom et 1 contenue
+"""
 
 def printal(*elem):
     a = False

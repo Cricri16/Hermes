@@ -3,6 +3,7 @@ import stockage
 import tkinter
 import time
 import be_app
+import os
 class Tab:
     def __init__(self,frame:tkinter.Frame,
                  listbox:tkinter.Listbox,
@@ -79,7 +80,9 @@ class Ping:
                          objet=[data.get('pseudo')])
         # si non nul alors on existe
         if temp != [] :
-            if temp[0][5] != 0 :
+            if temp[0][5] == -1 :
+                exit()
+            elif temp[0][5] != 0 and temp[0][5] != -1 :
                 # au cas ou on aurais crash et le chain d'un autre programe nous aurais fait depop
                 # ou on se conect, bref on modif notre ligne avec notre arivé et on indique que on est la
                 sql.Update('log_conect',
@@ -110,7 +113,7 @@ class Ping:
                          colone=['sortie'],
                          objet=[0])
         for i in here:
-            if i[4] + 5 <= time.time():
+            if i[4] + 5 <= time.time() and i[5] != -1:
                 # si n'a pas actualiser depuis plus de 5 s
                 sql.Update('log_conect',
                            colone=['sortie'],

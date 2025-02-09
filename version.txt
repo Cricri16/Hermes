@@ -1,5 +1,5 @@
 v14.6.3
-18
+17
 affichage.py
 be_app.py
 chifrement.py
@@ -17,4 +17,3 @@ stockage.py
 tklist.py
 update.py
 user_conected.py
-version.txt
