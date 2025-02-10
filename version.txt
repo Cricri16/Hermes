@@ -17,3 +17,4 @@ stockage.py
 tklist.py
 update.py
 user_conected.py
+version.txt
