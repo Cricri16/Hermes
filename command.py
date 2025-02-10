@@ -35,11 +35,11 @@ def analyse_commande(entrer:str,data:stockage.BigData,emplacement:be_app.Emplace
         messagebox.showinfo("command incorect","cette commande n'existe pas")
 
 def file(entrer:str,data:stockage.BigData,emplacement:be_app.Emplacement):
-    if entrer[6:] == '' :
+    if entrer[5:] == '' :
         entrer += ouvrir_explorateur_fichier()
-    if entrer[6:]:
+    if entrer[5:]:
         try:
-            file_size = os.path.getsize(entrer[6:])
+            file_size = os.path.getsize(entrer[5:])
             if file_size > 0.5 * 1024 * 1024 * 1024:  # 0.5 GB in bytes
                 messagebox.showinfo("Fichier trop volumineux", "La taille du fichier dépasse 0.5 Go")
                 return False
