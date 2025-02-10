@@ -77,12 +77,6 @@ comande sql """
         for i in lists :
             main.execute(i)
         main.close()
-        main = sqlite3.connect(sql_bdd_emplacement)
-        data = chifrement.chirement_list(['Robin CRIADO','Dev',time.time()])
-        cursor = main.cursor()
-        cursor.execute("INSERT INTO anuaire_user (rname,pname,date) VALUES (?,?,?)",data)
-        main.commit()
-        main.close()
     lists = ["""CREATE TABLE "Var" (
 	"id"	INTEGER UNIQUE,
 	"nom"	TEXT,
